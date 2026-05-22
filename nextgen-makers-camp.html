@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NextGen Makers Camp – Makers Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue: #1565C0;
+      --blue-dark: #0D47A1;
+      --yellow: #FFE600;
+      --yellow-dark: #F9C200;
+      --white: #ffffff;
+      --red: #E53935;
+      --green: #2E7D32;
+      --text-dark: #111;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--blue);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      padding: 18px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .logo-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--yellow);
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-text {
+      font-family: 'Bangers', cursive;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .logo-text span { display: block; font-size: 0.85rem; letter-spacing: 2px; color: var(--yellow); }
+
+    .logo-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+    .logo-right .ig {
+      background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      border-radius: 8px;
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 10px 16px 0;
+      z-index: 2;
+    }
+    .hero-attention {
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .hero-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3.2rem, 12vw, 6rem);
+      line-height: 0.92;
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 #0a2e6e, -2px -2px 0 #0a2e6e;
+      letter-spacing: 2px;
+    }
+    .hero-sub {
+      font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+      color: var(--white);
+      margin: 10px auto 0;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+
+    /* ── DASHED DIVIDER ── */
+    .dashed-divider {
+      border: none;
+      border-top: 3px dashed rgba(255,255,255,0.35);
+      margin: 18px 20px;
+    }
+
+    /* ── BUILD LOG SECTION ── */
+    .build-log-title {
+      text-align: center;
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      letter-spacing: 2px;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .build-log-title span { color: var(--yellow); }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 0 20px 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--yellow);
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 0 #b8a000, 0 10px 24px rgba(0,0,0,0.35);
+      transform: translateY(0);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px) rotate(-0.5deg);
+      box-shadow: 0 12px 0 #b8a000, 0 18px 40px rgba(0,0,0,0.4);
+    }
+    .card:active { transform: translateY(0); }
+
+    .card-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid #e0c000;
+      background: #ccc;
+    }
+
+    /* Placeholder images using gradient when real images unavailable */
+    .card-img-placeholder {
+      width: 100%;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-bottom: 3px solid #e0c000;
+    }
+
+    .card-body { padding: 14px 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+
+    .card-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      text-align: center;
+      color: var(--blue-dark);
+      text-transform: uppercase;
+    }
+
+    .card-fee {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      color: #333;
+    }
+
+    .card-date-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .card-date-col { flex: 1; }
+    .card-date-col label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 1px;
+    }
+    .card-date-col span {
+      font-family: 'Bangers', cursive;
+      font-size: 1.15rem;
+      color: var(--blue-dark);
+      letter-spacing: 0.5px;
+    }
+
+    .card-level {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 5px 14px;
+      border-radius: 5px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: white;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .level-rookie { background: var(--red); }
+    .level-veteran { background: var(--green); }
+
+    .card-register-btn {
+      margin-top: auto;
+      padding: 9px 14px;
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-align: center;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .card:hover .card-register-btn { background: var(--blue-dark); }
+
+    /* ── BUNDLE SECTION ── */
+    .bundle-section {
+      background: var(--yellow);
+      margin: 10px 20px 30px;
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 6px 0 #b8a000, 0 10px 24px rgba(0,0,0,0.25);
+      max-width: 1060px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .bundle-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.5rem;
+      color: var(--blue-dark);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .bundle-offers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      font-size: clamp(0.85rem, 2.8vw, 1rem);
+      font-weight: 900;
+      color: var(--text-dark);
+    }
+    .bundle-offers span {
+      background: var(--blue);
+      color: var(--yellow);
+      padding: 6px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* ── REGISTER BUTTON ── */
+    .register-section {
+      text-align: center;
+      padding: 0 20px 18px;
+    }
+    .register-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--blue-dark);
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      letter-spacing: 2px;
+      padding: 14px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 6px 0 #b8a000;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .register-btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #b8a000; }
+    .limited-txt {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .limited-txt strong { color: white; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--yellow);
+      text-align: center;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-family: 'Bangers', cursive;
+      font-size: 1.3rem;
+      color: var(--blue-dark);
+      letter-spacing: 1px;
+    }
+    .footer-powered {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #444;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .footer-mu {
+      font-family: 'Bangers', cursive;
+      font-size: 1.2rem;
+      color: var(--blue-dark);
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes float-in {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero { animation: float-in 0.7s ease both; }
+    .cards-grid { animation: float-in 0.9s ease 0.15s both; }
+    .bundle-section { animation: float-in 0.9s ease 0.25s both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 14px 16px 0; }
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 14px 24px; }
+      .card-img, .card-img-placeholder { height: 130px; }
+      .card-title { font-size: 0.95rem; }
+      .bundle-section { margin: 10px 14px 24px; }
+    }
+    @media (max-width: 380px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-left">
+      <img src="https://files.mastersunion.link/resources/animateds/logoanimationblack.gif" alt="Masters' Union" style="height:96px; filter: invert(1) brightness(2);" />
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <p class="hero-attention">Attention, Students!</p>
+    <h1 class="hero-title">NextGen<br>Makers Camp</h1>
+    <p class="hero-sub">Forget random hobbies. Build something <strong>COOL</strong> that actually works in a state-of-the-art lab.</p>
+  </div>
+
+  <hr class="dashed-divider"/>
+
+  <!-- Build Log -->
+  <h2 class="build-log-title">The Build <span>Log</span></h2>
+
+  <div class="cards-grid">
+
+    <!-- Card 1: AI Gesture Controlled Bionic Hand -->
+    <a class="card" href="https://dinero.mastersunion.org/make-payment?code=1ZJpiwTE0HwjL7y" target="_blank" rel="noopener">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#1565C0 0%,#42a5f5 100%);">🦾</div>
+      <div class="card-body">
+        <div class="card-title">AI Gesture Controlled Bionic Hand</div>
+        <div class="card-fee">Fee : ₹4,000 + GST</div>
+        <div class="card-date-row">
+          <div class="card-date-col">
+            <label>Date</label>
+            <span>28 May '26</span>
+          </div>
+          <div class="card-date-col">
+            <label>Time</label>
+            <span>11 AM – 4 PM</span>
+          </div>
+        </div>
+        <div class="card-level level-rookie">Project Level: Rookie</div>
+        <div class="card-register-btn">Register Now →</div>
+      </div>
+    </a>
+
+    <!-- Card 2: 3D Printed Spider Robot -->
+    <a class="card" href="https://dinero.mastersunion.org/make-payment?code=EelsPaZbK5eWCoq" target="_blank" rel="noopener">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#e53935 0%,#ff8f00 100%);">🕷️</div>
+      <div class="card-body">
+        <div class="card-title">3D Printed Spider Robot with Surveillance</div>
+        <div class="card-fee">Fee : ₹7,500 + GST</div>
+        <div class="card-date-row">
+          <div class="card-date-col">
+            <label>Date</label>
+            <span>29 May '26</span>
+          </div>
+          <div class="card-date-col">
+            <label>Time</label>
+            <span>11 AM – 6 PM</span>
+          </div>
+        </div>
+        <div class="card-level level-veteran">Project Level: Veteran</div>
+        <div class="card-register-btn">Register Now →</div>
+      </div>
+    </a>
+
+    <!-- Card 3: NFC Tag Making Workshop -->
+    <a class="card" href="https://dinero.mastersunion.org/make-payment?code=oIzOYPHhTxvNdem" target="_blank" rel="noopener">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#2e7d32 0%,#66bb6a 100%);">📱</div>
+      <div class="card-body">
+        <div class="card-title">NFC Tag Making Workshop</div>
+        <div class="card-fee">Fee : ₹4,000 + GST</div>
+        <div class="card-date-row">
+          <div class="card-date-col">
+            <label>Date</label>
+            <span>4 June '26</span>
+          </div>
+          <div class="card-date-col">
+            <label>Time</label>
+            <span>11 AM – 4 PM</span>
+          </div>
+        </div>
+        <div class="card-level level-rookie">Project Level: Rookie</div>
+        <div class="card-register-btn">Register Now →</div>
+      </div>
+    </a>
+
+    <!-- Card 4: RC Car Soccer Game -->
+    <a class="card" href="https://dinero.mastersunion.org/make-payment?code=rHofuU9FR4fOR0l" target="_blank" rel="noopener">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#6a1b9a 0%,#ab47bc 100%);">🚗</div>
+      <div class="card-body">
+        <div class="card-title">RC (Remote Controlled) Car Soccer Game</div>
+        <div class="card-fee">Fee : ₹7,500 + GST</div>
+        <div class="card-date-row">
+          <div class="card-date-col">
+            <label>Date</label>
+            <span>5 June '26</span>
+          </div>
+          <div class="card-date-col">
+            <label>Time</label>
+            <span>11 AM – 6 PM</span>
+          </div>
+        </div>
+        <div class="card-level level-veteran">Project Level: Veteran</div>
+        <div class="card-register-btn">Register Now →</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Bundle & Save -->
+  <!-- <div class="bundle-section">
+    <div class="bundle-title">⚡ Bundle &amp; Save</div>
+    <div class="bundle-offers">
+      <span>Book any 2 → 20% OFF</span>
+      <span>Book any 3 → 30% OFF</span>
+      <span>All 4 → 40% OFF</span>
+    </div>
+  </div> -->
+
+  <!-- Register CTA -->
+  <div class="register-section">
+    <p class="limited-txt"><strong>Limited spots available</strong> across all workshops.</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-brand">Makers Lab</span>
+    <span class="footer-powered">Powered By</span>
+    <span class="footer-mu">Masters' Union</span>
+  </footer>
+
+</body>
+</html>
